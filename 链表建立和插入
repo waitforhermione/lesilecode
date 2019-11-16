@@ -1,0 +1,77 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct num *creat(int n);
+struct num *insert(struct num *head);
+void printfstruct(struct num *head);
+struct num
+{
+   double score;
+   struct num *next;
+};
+int main()
+{
+   struct num *head;
+   printf("input the numbers as follows:\n");
+   head=creat(10);
+   printf("the nummbers you have inputed:\n");
+   printfstruct(head);
+   printf("\n");
+   head=insert(head);
+   printf("the number after sort:\n");
+   printfstruct(head);
+}
+
+struct num *creat(int n)
+{
+   struct num *head,*pnew,*ptail;
+   int i;
+   pnew=(struct num *)malloc (sizeof(struct num ));
+   scanf("%lf",&pnew->score );
+   head=ptail=pnew;
+   for(i=1;i<n;i++)
+   {
+   pnew=(struct num *)malloc (sizeof(struct num ));
+   scanf("%lf",&pnew->score );
+   ptail->next=pnew;
+   ptail=pnew;
+   }
+   ptail->next=NULL;
+   return head;
+}
+
+struct num *insert(struct num *head)
+{
+    struct num *p,*pnew,*pold;
+    pnew=(struct num *)malloc(sizeof(struct num ));
+    printf("please input the number you want to insert:\n");
+    scanf("%lf",&pnew->score);
+    p=head;
+   if(pnew->score<head->score)
+   {
+      pnew->next=head;
+      head=pnew;//头指针换成了新节点
+   }//如果插入在头指针前，也就是如果这个输入的数最小
+   else
+   {
+      while(p!=NULL&&pnew->score>p->score)
+      {
+         pold=p;
+         p=p->next;
+      }
+      pnew->next=p;
+      pold->next=pnew;
+   }
+   return head;
+
+} 
+void printfstruct(struct num *head)
+{
+   struct num *p;
+   p=head;
+   while(p!=NULL)
+   {
+      printf("%.2lf ",p->score);
+      p=p->next;
+   }
+}
+
