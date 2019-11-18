@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct num
+{
+   int a;
+   struct num *next;
+   struct num*pre;
+};
+struct num *creatdouble(int n);
+void printfstructupanddown(struct num *head);
+
+int main()
+{
+   int n;
+   struct num *head;
+   scanf("%d",&n);
+   head=creatdouble(n);
+   printfstructupanddown(head);
+}
+struct num *creatdouble(int n)
+{
+   int i;
+   struct num *head,*pnew,*pliot,*pre;
+   pre=NULL;
+   pnew=(struct num *)malloc(sizeof(struct num ));
+   scanf("%d",&pnew->a);
+   head=pliot=pre=pnew;
+   for(i=1;i<n;i++)
+   {
+      pnew=(struct num *)malloc(sizeof(struct num ));
+      scanf("%d",&pnew->a);
+      pliot->next=pnew;
+      pnew->pre=pliot;
+      pliot=pnew;
+   }
+   pnew->next=NULL;
+   return head;
+}
+
+void printfstructupanddown(struct num *head)
+{
+   struct num *p,*p0;
+   p=head;
+   while(p!=NULL)
+   {
+      printf("%d ",p->a);
+      p0=p;
+      p=p->next; 
+   }
+   printf("\n");
+   while(p0!=NULL)
+   {
+      printf("%d ",p0->a);
+      p0=p0->pre;
+   }
+}
