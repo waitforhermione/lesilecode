@@ -1,0 +1,27 @@
+bool isSameTree(struct TreeNode* p, struct TreeNode* q)
+{
+   if(p==NULL&&q==NULL)
+   {
+      return true;
+   }
+   else
+   {
+      if(p==NULL||q==NULL)
+      {
+         return false;
+      }
+      else
+      {
+         if(p->val==q->val)
+         {
+            return isSameTree(p->right, q->right)&&isSameTree(p->left, q->left);
+         }
+         else
+         {
+            return false;
+         }
+         
+      }
+   }
+   
+}
