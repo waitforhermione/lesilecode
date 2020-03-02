@@ -1,3 +1,5 @@
+//to find a group of numbers that don't adjoin,making their sum max.
+//result:15 
 #include<stdio.h>
 int dp(int *n,int i);
 int main()
