@@ -1,0 +1,32 @@
+//to judge are there a group of nums that sum is the num we input. 
+#include<stdio.h>
+int dp(int *point,int i,int sum);
+int main()
+{
+    int a[6]={3,34,4,12,5,2};
+    int sum,i=6;
+	  scanf("%d",sum);
+    int *point=a+5;
+    if(dp(point,i,sum))
+        printf("Ture");
+    else
+    {
+        printf("false");
+    }
+    
+}
+int dp(int *point,int i,int sum)
+{
+    if(*point==3&&*point!=sum)
+        return 0;
+    else
+    {
+        if((*point)==sum)
+            return 1;
+        else
+        {
+            int *pointx=point-1;
+            return (dp(pointx,i-2,sum-*point)) || (dp(pointx,i-1,sum));
+        }
+    }
+}
