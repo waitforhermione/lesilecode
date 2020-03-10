@@ -1,0 +1,70 @@
+#include<string.h>
+#include<stdio.h>
+#include<stdlib.h>
+void prefix_table(char pattern[],int perfix[],int n);//获得前缀表
+void move(int prefix[],int n);//初始化前缀表，也就是后移一位，第一位变为-1
+void kmp(char text[],char pattern[]);//KMP查找
+int main()
+{
+    char pattern[100];
+    char text[100];
+    gets(pattern);
+    gets(text);
+    kmp(text,pattern);
+}
+void prefix_table(char pattern[],int perfix[],int n){
+    perfix[0] =0;
+    int len   =0;
+    int i=1;
+    while(i<n){
+        if (pattern[i] == pattern[len]){
+            len++;
+            perfix[i]=len;
+            i++;
+        }
+        else{
+            if(len>0){
+                len=perfix[len-1];
+            }
+            else{
+                perfix[i]=len;
+                i++;
+            }
+       }
+    }
+}
+void move(int prefix[],int n){
+    int i;
+    for(i=n-1;i>0;i--){
+        prefix[i]=prefix[i-1];
+    }
+    prefix[0]=-1;
+}
+void kmp(char text[],char pattern[]){
+    int n=strlen(pattern),sum=0;
+    int m=strlen(text);
+    int *prefix=(int *)malloc(sizeof(int)*n);
+    int i=0,j=0;
+
+    prefix_table(pattern,prefix,n);
+    move(prefix,n);
+    while(i<m){
+        if(j==n-1 && text[i]==pattern[j]){
+            printf("FOUND AT %d\n",i-j+1);
+            sum++;
+            j=prefix[j];
+        }
+        if(text[i]==pattern[j]){
+            i++;
+            j++;
+        }
+        else{
+            j=prefix[j];
+            if(-1 == j){
+                i++;
+                j++;
+            }
+        }
+    }
+    printf("appeared %d time(s)",sum);
+}
